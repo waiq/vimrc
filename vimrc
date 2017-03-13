@@ -3,6 +3,14 @@
   " NERDTree
   Plug 'scrooloose/nerdtree'
 
+  " NERD Commenter
+  " <leader>cc ,NERDComComment
+  " <leader>c<space>, NERDComToggleComment: Toggle comment on selected lines
+  " <leader>cs ,NERDComSexyComment
+  " <leader>c$ ,NERDComEOLComment: Add comment to end off line
+  " <leader>cu ,NERDComUncommentLine
+  Plug 'scrooloose/nerdcommenter'
+
   " Full path fuzzy file, buffer, mru, tag, ... finder for Vim.
   Plug 'https://github.com/kien/ctrlp.vim'
 
