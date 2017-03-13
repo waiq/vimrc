@@ -1,6 +1,6 @@
   call plug#begin('~/.vim/plugged')
 
-  " On-demand loading
+  " NERDTree
   Plug 'scrooloose/nerdtree'
 
   " Full path fuzzy file, buffer, mru, tag, ... finder for Vim.
@@ -43,9 +43,16 @@
   Plug 'airblade/vim-gitgutter'
 
   " True Sublime Text style multiple selections for Vim
+  " C-n mark word under currsor, C-n again will match the next one.
   Plug 'terryma/vim-multiple-cursors'
 
   " For deleting, changing, and adding surroudings
+  " Change Surroundings, from " to '
+  " Press cs"'
+  " Change Surrounding Tag from <derp>..</derp> to "
+  " Press cst"
+  " Delete Surrounding "
+  " Press ds"
   Plug 'tpope/vim-surround'
 
   " auto-close will e.g automatically insert a ')' to close '('
@@ -140,6 +147,8 @@
   nmap <silent><leader>w :wa<CR>
   " quit
   nmap <silent><leader>q :q<CR>
+  " no highlight 
+  nmap <silent><leader>h :noh<CR>
 
   nmap <leader>f :execute 'tselect '.expand('<cword>')<CR>
 
@@ -148,6 +157,10 @@
   nmap <C-j> <C-w>j
   nmap <C-k> <C-w>k
   nmap <C-l> <C-w>l
+
+  " ================ vim-autoclose =======================
+  " Fix dubble esc 
+  let g:AutoClosePumvisible = {"ENTER": "", "ESC": ""}
 
   " ================ GoLang =======================
   let g:go_fmt_command = "goimports"
