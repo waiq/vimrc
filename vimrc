@@ -66,6 +66,15 @@
   " auto-close will e.g automatically insert a ')' to close '('
   Plug 'Townk/vim-autoclose'
 
+  " Ruby support 
+  Plug 'vim-ruby/vim-ruby'
+
+  " snippets.
+  Plug 'SirVer/ultisnips'
+
+  " Snippets are separated from the engine.
+  Plug 'honza/vim-snippets'
+
   call plug#end()
 
   let mapleader = ";"
@@ -100,6 +109,7 @@
   set ttyfast
   set lazyredraw
   set hlsearch
+  set incsearch
 
   " ================ Turn Off Swap Files ==============
   set noswapfile
@@ -190,3 +200,10 @@
 
   " ================ Ruby =======================
   let g:ruby_path = system('rvm current')
+
+  " ================ Snippets =======================
+  
+  " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
+  let g:UltiSnipsExpandTrigger="<c-x>"
+  let g:UltiSnipsJumpForwardTrigger="<c-f>"
+  let g:UltiSnipsJumpBackwardTrigger="<c-b>"
