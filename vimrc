@@ -176,6 +176,9 @@
   nmap <C-k> <C-w>k
   nmap <C-l> <C-w>l
 
+  " Line Numbering
+  nmap <silent><Leader>r :set rnu!<CR>
+
   " ================ vim-autoclose =======================
   " Fix dubble esc 
   let g:AutoClosePumvisible = {"ENTER": "", "ESC": ""}
