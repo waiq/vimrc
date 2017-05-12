@@ -33,6 +33,9 @@
   Plug 'christoomey/vim-tmux-navigator'
 
   " You compelete me, code complete
+  " This will install all:
+  " cd ~/.vim/bundle/YouCompleteMe
+  " ./install.py --all
   Plug 'Valloric/YouCompleteMe'
 
   " Misc handling, used by easytags
@@ -141,6 +144,19 @@
   set wildignore+=*.png,*.jpg,*.gif
 
 
+  " ================ Commands =======================
+  
+  " Pritty formats Json in current buffer
+  command PrittyJson :execute '%!python -m json.tool'
+
+  " search or tselect's word under cursor, in tags
+  command TselectWord :execute 'tselect '.expand('<cword>')
+
+  " ================ Tags =======================
+  " local project tag file, locate in git folder.
+  set tags=~/.vim/tags
+  let g:easytags_dynamic_files = 1
+
   " ================ KayBindings ====================
   " Ack
   nnoremap <Leader>a :Ack!<Space>
@@ -148,36 +164,47 @@
     let g:ackprg = 'ag --vimgrep'
   endif
  
-  " open NERDTree
+  " Open NERDTree
   nnoremap <Leader>n :NERDTreeToggle<CR>
-  " find current file in NERDTree
+
+  " Find current file in NERDTree
   nnoremap <Leader>hf :NERDTreeFind<CR>
 
-  " open tagbar
+  " Open tagbar
   nnoremap <Leader>v :TagbarToggle<CR>
 
-  " show open buffers
+  " Show open buffers
   nnoremap <Leader>j :CtrlPBuffer<CR>
 
-  " show list symbles
-  nmap <silent><leader>l :set list!<CR>
-  " save all changes
-  nmap <silent><leader>w :wa<CR>
-  " quit
-  nmap <silent><leader>q :q<CR>
-  " no highlight 
-  nmap <silent><leader>h :noh<CR>
+  " CtrP seach in tags
+  nnoremap <leader>pt :CtrlPTag<cr>
 
-  nmap <leader>f :execute 'tselect '.expand('<cword>')<CR>
+  " Tags search (TSelect) word under cursor
+   nnoremap <silent><leader>f :TselectWord<CR>
+
+   " Regenerate ctags
+   nnoremap <Leader>rt :!ctags --exclude=.git --extra=+f -R *<CR><CR>
+
+  " Show list symbles
+  nnoremap <silent><leader>li :set list!<CR>
+  
+  " Show Line Numbers
+  nnoremap <silent><Leader>l :set rnu!<CR>
+
+  " Save all changes
+  nnoremap <silent><leader>w :wa<CR>
+
+  " Quit
+  nnoremap <silent><leader>q :q<CR>
+
+  " No highlight 
+  nnoremap <silent><leader>h :noh<CR>
 
   " Easier window navigation
-  nmap <C-h> <C-w>h
-  nmap <C-j> <C-w>j
-  nmap <C-k> <C-w>k
-  nmap <C-l> <C-w>l
-
-  " Line Numbering
-  nmap <silent><Leader>r :set rnu!<CR>
+  nnoremap <C-h> <C-w>h
+  nnoremap <C-j> <C-w>j
+  nnoremap <C-k> <C-w>k
+  nnoremap <C-l> <C-w>l
 
   " ================ vim-autoclose =======================
   " Fix dubble esc 
@@ -189,7 +216,7 @@
   au FileType go nmap <leader>r <Plug>(go-run)
   au FileType go nmap <leader>b <Plug>(go-build)
   au FileType go nmap <leader>t <Plug>(go-test)
-  au FileType go nmap <leader>c <Plug>(go-coverage)
+  au FileType go nmap <leader>ta :GoAlternate<CR>
   au FileType go nmap <leader>ds <Plug>(go-def-split)
   au FileType go nmap <leader>dv <Plug>(go-def-vertical)
   au FileType go nmap <leader>dt <Plug>(go-def-tab)
@@ -203,6 +230,13 @@
 
   " ================ Ruby =======================
   let g:ruby_path = system('rvm current')
+
+  set nocompatible      " We're running Vim, not Vi!
+  autocmd FileType ruby compiler ruby
+  syntax on             " Enable syntax highlighting
+  filetype on           " Enable filetype detection
+  filetype indent on    " Enable filetype-specific indenting
+  filetype plugin on    " Enable filetype-specific plugins
 
   " ================ Snippets =======================
   
