@@ -100,6 +100,9 @@
   set cursorline                                      " highlight current line  :set hlsearch
   set ignorecase
   set laststatus=2
+  set statusline=\:\%f\ 
+  set statusline+=%=
+  set statusline+=buffer:\%n "Buffer number
   set wildmenu
   set exrc
   set smartindent
@@ -201,10 +204,13 @@
   nnoremap <silent><leader>h :noh<CR>
 
   " Easier window navigation
-  nnoremap <C-h> <C-w>h
-  nnoremap <C-j> <C-w>j
-  nnoremap <C-k> <C-w>k
-  nnoremap <C-l> <C-w>l
+  nnoremap <C-J> <C-W>j
+  nnoremap <C-K> <C-W>k
+  nnoremap <C-H> <C-W>h
+  nnoremap <C-L> <C-W>l
+
+  " ================ ALE Settings =======================
+  let g:ale_set_highlights = 0
 
   " ================ vim-autoclose =======================
   " Fix dubble esc 
@@ -231,9 +237,7 @@
   " ================ Ruby =======================
   let g:ruby_path = system('rvm current')
 
-  set nocompatible      " We're running Vim, not Vi!
   autocmd FileType ruby compiler ruby
-  syntax on             " Enable syntax highlighting
   filetype on           " Enable filetype detection
   filetype indent on    " Enable filetype-specific indenting
   filetype plugin on    " Enable filetype-specific plugins
