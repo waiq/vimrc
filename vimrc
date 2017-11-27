@@ -100,9 +100,12 @@
   set cursorline                                      " highlight current line  :set hlsearch
   set ignorecase
   set laststatus=2
-  set statusline=\:\%f\ 
+  set statusline=\:\%f\
+  set statusline+=%m      "modified flag 
+  set statusline+=%r      "read only flag"
   set statusline+=%=
-  set statusline+=buffer:\%n "Buffer number
+  set statusline+=Buffer:\%n "Buffer number
+  set statusline+=\ Line%l/%L   "cursor line/total lines
   set wildmenu
   set exrc
   set smartindent
@@ -212,6 +215,11 @@
   " ================ ALE Settings =======================
   let g:ale_set_highlights = 0
 
+  let g:ale_linters = {
+        \  'go': ['go build','gofmt', 'golint', 'go vet', 'gosimple', 'staticcheck']
+        \}
+
+ "   'go':  ['go build', 'gofmt', 'golint', 'gosimple', 'go vet', 'staticcheck']
   " ================ vim-autoclose =======================
   " Fix dubble esc 
   let g:AutoClosePumvisible = {"ENTER": "", "ESC": ""}
@@ -219,32 +227,46 @@
   " ================ GoLang =======================
   let g:go_fmt_command = "goimports"
 
-  au FileType go nmap <leader>r <Plug>(go-run)
   au FileType go nmap <leader>b <Plug>(go-build)
   au FileType go nmap <leader>t <Plug>(go-test)
   au FileType go nmap <leader>ta :GoAlternate<CR>
-  au FileType go nmap <leader>ds <Plug>(go-def-split)
-  au FileType go nmap <leader>dv <Plug>(go-def-vertical)
-  au FileType go nmap <leader>dt <Plug>(go-def-tab)
-  au FileType go nmap <leader>gd <Plug>(go-doc)
-  au FileType go nmap <leader>gv <Plug>(go-doc-vertical)
-  au FileType go nmap <leader>gb <Plug>(go-doc-browser)
   au FileType go nmap <leader>s <Plug>(go-implements)
   au FileType go nmap <leader>i <Plug>(go-info)
   au FileType go nmap <leader>e <Plug>(go-rename)
   au FileType go nmap <Leader>c <Plug>(go-coverage-toggle)
 
+  let g:go_fold_enable = ['block', 'import', 'varconst', 'package_comment']
+
+  let g:go_highlight_string_spellcheck = 1
+  let g:go_highlight_format_strings = 1
+
   " ================ Ruby =======================
-  let g:ruby_path = system('rvm current')
+  "let g:ruby_path = system('rvm current')
 
-  autocmd FileType ruby compiler ruby
-  filetype on           " Enable filetype detection
-  filetype indent on    " Enable filetype-specific indenting
-  filetype plugin on    " Enable filetype-specific plugins
-
+  "autocmd FileType ruby compiler ruby
+  "filetype on           " Enable filetype detection
+  "filetype indent on    " Enable filetype-specific indenting
+  "filetype plugin on    " Enable filetype-specific plugins
+  
+  " ================ Gitgutter =======================
+  let g:gitgutter_eager = 0
+  let g:gitgutter_realtime = 0
   " ================ Snippets =======================
   
   " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
   let g:UltiSnipsExpandTrigger="<c-x>"
   let g:UltiSnipsJumpForwardTrigger="<c-f>"
   let g:UltiSnipsJumpBackwardTrigger="<c-b>"
+
+  " Diff mode config
+  if &diff
+    " Diff key binings
+    
+    " Close all
+    nnoremap <silent><leader>q :qa<CR>
+
+    colorscheme evening
+    set cursorline
+    map ] ]c
+    map [ [c
+  endif
