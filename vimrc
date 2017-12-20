@@ -17,6 +17,9 @@
   " Go (golang) support for Vim
   Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
 
+  " Python auto formalt
+  Plug 'tell-k/vim-autopep8'
+
   " Asynchronous Lint Engine
   Plug 'w0rp/ale'
 
@@ -37,6 +40,10 @@
   " cd ~/.vim/bundle/YouCompleteMe
   " ./install.py --all
   Plug 'Valloric/YouCompleteMe'
+
+  "Plug 'Shougo/deoplete.nvim'
+  "Plug 'roxma/nvim-yarp'
+  "Plug 'roxma/vim-hug-neovim-rpc'
 
   " Misc handling, used by easytags
   Plug 'xolox/vim-misc'
@@ -71,12 +78,6 @@
 
   " Ruby support 
   Plug 'vim-ruby/vim-ruby'
-
-  " snippets.
-  Plug 'SirVer/ultisnips'
-
-  " Snippets are separated from the engine.
-  Plug 'honza/vim-snippets'
 
   call plug#end()
 
@@ -149,7 +150,6 @@
   set wildignore+=tmp/**
   set wildignore+=*.png,*.jpg,*.gif
 
-
   " ================ Commands =======================
   
   " Pritty formats Json in current buffer
@@ -213,8 +213,6 @@
   nnoremap <C-L> <C-W>l
 
   " ================ ALE Settings =======================
-  let g:ale_set_highlights = 0
-
   let g:ale_linters = {
         \  'go': ['go build','gofmt', 'golint', 'go vet', 'gosimple', 'staticcheck']
         \}
@@ -239,25 +237,36 @@
 
   let g:go_highlight_string_spellcheck = 1
   let g:go_highlight_format_strings = 1
+  filetype plugin on    " Enable filetype-specific plugins
+
+
+  " ================ Python =======================
+  autocmd FileType python set equalprg=autopep8\ -
 
   " ================ Ruby =======================
-  "let g:ruby_path = system('rvm current')
+  let g:ruby_path = system('rvm current')
 
-  "autocmd FileType ruby compiler ruby
-  "filetype on           " Enable filetype detection
-  "filetype indent on    " Enable filetype-specific indenting
-  "filetype plugin on    " Enable filetype-specific plugins
+  autocmd FileType ruby compiler ruby
+  autocmd FileType ruby set re=1
+  filetype on           " Enable filetype detection
+  filetype indent on    " Enable filetype-specific indenting
+  filetype plugin on    " Enable filetype-specific plugins
   
   " ================ Gitgutter =======================
   let g:gitgutter_eager = 0
   let g:gitgutter_realtime = 0
-  " ================ Snippets =======================
-  
-  " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
-  let g:UltiSnipsExpandTrigger="<c-x>"
-  let g:UltiSnipsJumpForwardTrigger="<c-f>"
-  let g:UltiSnipsJumpBackwardTrigger="<c-b>"
 
+  let g:ycm_semantic_triggers =  {
+    \   'c' : ['->', '.'],
+    \   'objc' : ['->', '.'],
+    \   'cpp,objcpp' : ['->', '.', '::'],
+    \   'perl' : ['->'],
+    \   'php' : ['->', '::'],
+    \   'cs,java,javascript,d,vim,ruby,python,perl6,scala,vb,elixir,go' : ['.'],
+    \   'lua' : ['.', ':'],
+    \   'erlang' : [':'],
+    \ }
+  
   " Diff mode config
   if &diff
     " Diff key binings
