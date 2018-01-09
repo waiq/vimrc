@@ -17,6 +17,14 @@
   " Go (golang) support for Vim
   Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
 
+  " vim shell
+  Plug 'Shougo/vimshell.vim'
+
+  Plug 'Shougo/vimproc.vim', {'do' : 'make'}
+
+  " Go debugging 
+  Plug 'sebdah/vim-delve' 
+
   " Python auto formalt
   Plug 'tell-k/vim-autopep8'
 
