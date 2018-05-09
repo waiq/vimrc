@@ -22,14 +22,20 @@
 
   Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 
+  " Run external commands
+  Plug 'skywind3000/asyncrun.vim'
+
   " Go debugging 
   Plug 'sebdah/vim-delve' 
 
-  " Python auto formalt
+  " Python auto format
   Plug 'tell-k/vim-autopep8'
 
   " Asynchronous Lint Engine
   Plug 'w0rp/ale'
+
+  "Java completion
+  Plug 'artur-shaik/vim-javacomplete2' 
 
   " Git 
   Plug 'tpope/vim-fugitive'
@@ -54,10 +60,13 @@
   "Plug 'roxma/vim-hug-neovim-rpc'
 
   " Misc handling, used by easytags
-  Plug 'xolox/vim-misc'
+  " Plug 'xolox/vim-misc'
 
   " Ctags handling, used by Tagbar
-  Plug 'xolox/vim-easytags'
+  "Plug 'xolox/vim-easytags'
+  
+  " Ctags navigation
+  Plug 'ludovicchabant/vim-gutentags'
 
   " Tagbar
   Plug 'majutsushi/tagbar'
@@ -67,6 +76,12 @@
 
   " shows a git diff in the 'gutter' 
   Plug 'airblade/vim-gitgutter'
+
+  " Snippets.
+  Plug 'SirVer/ultisnips'
+
+  "  Android dev in vim
+  Plug 'hsanson/vim-android'
 
   " True Sublime Text style multiple selections for Vim
   " C-n mark word under currsor, C-n again will match the next one.
@@ -159,7 +174,7 @@
   set wildignore+=*.png,*.jpg,*.gif
 
   " ================ Commands =======================
-  
+
   " Pritty formats Json in current buffer
   command PrittyJson :execute '%!python -m json.tool'
 
@@ -168,7 +183,7 @@
 
   " ================ Tags =======================
   " local project tag file, locate in git folder.
-  set tags=~/.vim/tags
+  set tags=./tags
   let g:easytags_dynamic_files = 1
 
   " ================ KayBindings ====================
@@ -177,7 +192,7 @@
   if executable('ag')
     let g:ackprg = 'ag --vimgrep'
   endif
- 
+
   " Open NERDTree
   nnoremap <Leader>n :NERDTreeToggle<CR>
 
@@ -194,14 +209,14 @@
   nnoremap <leader>pt :CtrlPTag<cr>
 
   " Tags search (TSelect) word under cursor
-   nnoremap <silent><leader>f :TselectWord<CR>
+  nnoremap <silent><leader>f :TselectWord<CR>
 
-   " Regenerate ctags
-   nnoremap <Leader>rt :!ctags --exclude=.git --extra=+f -R *<CR><CR>
+  " Regenerate ctags
+  nnoremap <Leader>rt :!ctags --exclude=.git --extra=+f -R *<CR><CR>
 
   " Show list symbles
   nnoremap <silent><leader>li :set list!<CR>
-  
+
   " Show Line Numbers
   nnoremap <silent><Leader>l :set rnu!<CR>
 
@@ -220,12 +235,18 @@
   nnoremap <C-H> <C-W>h
   nnoremap <C-L> <C-W>l
 
+
+
+  " ================ AsyncRun Settings =======================
+  let g:asyncrun_open = 8 
+
   " ================ ALE Settings =======================
   let g:ale_linters = {
-        \  'go': ['go build','gofmt', 'golint', 'go vet', 'gosimple', 'staticcheck']
+        \  'go': ['go build','gofmt', 'golint', 'go vet', 'gosimple', 'staticcheck'],
+        \  'java': ['checkstyle']
         \}
 
- "   'go':  ['go build', 'gofmt', 'golint', 'gosimple', 'go vet', 'staticcheck']
+  "   'go':  ['go build', 'gofmt', 'golint', 'gosimple', 'go vet', 'staticcheck']
   " ================ vim-autoclose =======================
   " Fix dubble esc 
   let g:AutoClosePumvisible = {"ENTER": "", "ESC": ""}
@@ -240,6 +261,7 @@
   au FileType go nmap <leader>i <Plug>(go-info)
   au FileType go nmap <leader>e <Plug>(go-rename)
   au FileType go nmap <Leader>c <Plug>(go-coverage-toggle)
+  au FileType go nmap <Leader>d <Plug>(go-doc)
 
   let g:go_fold_enable = ['block', 'import', 'varconst', 'package_comment']
 
@@ -259,26 +281,54 @@
   filetype on           " Enable filetype detection
   filetype indent on    " Enable filetype-specific indenting
   filetype plugin on    " Enable filetype-specific plugins
+
+  " ================ Java Android =======================
+  au FileType java setlocal omnifunc=javacomplete#Complete
+
+  au FileType java nmap <Leader>b :AsyncRun gradle Readly:compileDebugJavaWithJavac<CR>
+  au FileType java nmap <Leader>i :AsyncRun gradle Readly:installDebug<CR>
+
+  " Emulator
+  au FileType java nmap <Leader>eo :silent exec "!$ANDROID_HOME/emulator/emulator -avd <cword> 1>/dev/null 2>&1 &" <CR>
+  au FileType java nmap <Leader>el :AsyncRun $ANDROID_HOME/emulator/emulator -list-avds<CR>
   
+
+  let g:JavaComplete_BaseDir ='~/.cache'
+  let g:JavaComplete_LibsPath ='/usr/local/share/android-sdk/platforms/android-27/android.jar'
+  let g:android_adb_tool='/usr/local/share/android-sdk/platform-tools/adb'
+  let g:gradle_path='/usr/local/Cellar/gradle/4.7'
+
   " ================ Gitgutter =======================
   let g:gitgutter_eager = 0
   let g:gitgutter_realtime = 0
 
+
+  " ================ Snippets =======================
+  " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
+  let g:UltiSnipsExpandTrigger="<c-j>"
+  let g:UltiSnipsJumpForwardTrigger="<c-b>"
+  let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+
+  " If you want :UltiSnipsEdit to split your window.
+  let g:UltiSnipsEditSplit="vertical"
+
+  " ================ YCM =======================
   let g:ycm_semantic_triggers =  {
-    \   'c' : ['->', '.'],
-    \   'objc' : ['->', '.'],
-    \   'cpp,objcpp' : ['->', '.', '::'],
-    \   'perl' : ['->'],
-    \   'php' : ['->', '::'],
-    \   'cs,java,javascript,d,vim,ruby,python,perl6,scala,vb,elixir,go' : ['.'],
-    \   'lua' : ['.', ':'],
-    \   'erlang' : [':'],
-    \ }
-  
+        \   'c' : ['->', '.'],
+        \   'objc' : ['->', '.'],
+        \   'cpp,objcpp' : ['->', '.', '::'],
+        \   'perl' : ['->'],
+        \   'php' : ['->', '::'],
+        \   'cs,java,javascript,d,vim,ruby,python,perl6,scala,vb,elixir,go' : ['.'],
+        \   'lua' : ['.', ':'],
+        \   'erlang' : [':'],
+        \ }
+
+  " ================ VIM custom =======================
   " Diff mode config
   if &diff
     " Diff key binings
-    
+
     " Close all
     nnoremap <silent><leader>q :qa<CR>
 
