@@ -289,7 +289,7 @@
   au FileType java nmap <Leader>i :AsyncRun gradle Readly:installDebug<CR>
 
   " Emulator
-  au FileType java nmap <Leader>eo :silent exec "!$ANDROID_HOME/emulator/emulator -avd <cword> 1>/dev/null 2>&1 &" <CR>
+  au FileType java nmap <Leader>eo :silent exec "!$ANDROID_HOME/emulator/emulator -avd <cword> 1>/dev/null 2>&1 &" <CR> :redraw! <CR>
   au FileType java nmap <Leader>el :AsyncRun $ANDROID_HOME/emulator/emulator -list-avds<CR>
   
 
