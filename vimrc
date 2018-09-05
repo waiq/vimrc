@@ -60,7 +60,7 @@
   "Plug 'roxma/vim-hug-neovim-rpc'
 
   " Misc handling, used by easytags
-  " Plug 'xolox/vim-misc'
+  Plug 'xolox/vim-misc'
 
   " Ctags handling, used by Tagbar
   "Plug 'xolox/vim-easytags'
@@ -183,7 +183,7 @@
 
   " ================ Tags =======================
   " local project tag file, locate in git folder.
-  set tags=./tags
+  "
   let g:easytags_dynamic_files = 1
 
   " ================ KayBindings ====================
@@ -236,6 +236,9 @@
   nnoremap <C-L> <C-W>l
 
 
+  " ================== Gutentags ===================== 
+  let g:gutentags_ctags_tagfile = '.tags'
+  set tags+=.tags;/
 
   " ================ AsyncRun Settings =======================
   let g:asyncrun_open = 8 
