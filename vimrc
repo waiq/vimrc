@@ -17,6 +17,9 @@
   " Go (golang) support for Vim
   Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
 
+  " Serach and replace plugin
+  Plug 'yegappan/greplace'
+
   " vim shell
   Plug 'Shougo/vimshell.vim'
 
