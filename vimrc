@@ -44,7 +44,9 @@
   Plug 'tpope/vim-fugitive'
 
   " Vim Colorchemes theme
-  Plug 'flazz/vim-colorschemes'
+  "Plug 'flazz/vim-colorschemes'
+
+  Plug 'dracula/vim', { 'as': 'dracula' }
 
   " show git symbols in NeardTree
   Plug 'Xuyuanp/nerdtree-git-plugin'
@@ -113,7 +115,8 @@
   syntax on
 
   " ================ Theme ============================
-  silent! colorscheme hybrid_material
+  "silent! colorscheme hybrid_material
+  color dracula
   
 
   " ================ General Config ===================
@@ -249,7 +252,8 @@
   " ================ ALE Settings =======================
   let g:ale_linters = {
         \  'go': ['go build','gofmt', 'golint', 'go vet', 'gosimple', 'staticcheck'],
-        \  'java': ['checkstyle']
+        \  'java': ['checkstyle'],
+        \  'ruby': ['ruby']
         \}
 
   "   'go':  ['go build', 'gofmt', 'golint', 'gosimple', 'go vet', 'staticcheck']
