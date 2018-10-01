@@ -342,7 +342,7 @@
     " Close all
     nnoremap <silent><leader>q :qa<CR>
 
-    colorscheme evening
+    colorscheme dracula
     set cursorline
     map ] ]c
     map [ [c
