@@ -184,9 +184,6 @@
   " Pritty formats Json in current buffer
   command PrittyJson :execute '%!python -m json.tool'
 
-  " search or tselect's word under cursor, in tags
-  command TselectWord :execute 'tselect '.expand('<cword>')
-
   " ================ Tags =======================
   " local project tag file, locate in git folder.
   "
@@ -214,13 +211,10 @@
   " CtrP seach in tags
   nnoremap <leader>pt :CtrlPTag<cr>
 
-  " Tags search (TSelect) word under cursor
-  nnoremap <silent><leader>f :TselectWord<CR>
+  " Tags, jump to tag if olny one, else list
+  nnoremap <C-]> g<C-]>
 
-  " Regenerate ctags
-  nnoremap <Leader>rt :!ctags --exclude=.git --extra=+f -R *<CR><CR>
-
-  " Show list symbles
+  " Show list symboles
   nnoremap <silent><leader>li :set list!<CR>
 
   " Show Line Numbers
@@ -243,8 +237,9 @@
 
 
   " ================== Gutentags ===================== 
+  "set tags+=.tags;/
+  set tags+=.tags
   let g:gutentags_ctags_tagfile = '.tags'
-  set tags+=.tags;/
 
   " ================ AsyncRun Settings =======================
   let g:asyncrun_open = 8 
