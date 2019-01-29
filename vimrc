@@ -235,6 +235,8 @@
   nnoremap <C-H> <C-W>h
   nnoremap <C-L> <C-W>l
 
+  " macro 
+  nnoremap <Space> @q
 
   " ================== Gutentags ===================== 
   "set tags+=.tags;/
@@ -335,7 +337,7 @@
     " Diff key binings
 
     " Close all
-    nnoremap <silent><leader>q :qa<CR>
+    nnoremap <silent><leader>q :qa!<CR>
 
     colorscheme dracula
     set cursorline
