@@ -17,7 +17,18 @@
   " Go (golang) support for Vim
   Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
 
-  " Serach and replace plugin
+
+  ":Gsearch	Search for a given pattern in the specified group of
+  "files and display the matches in the replace buffer.
+  ":Gbuffersearch	Search for a given pattern in all the buffers
+  "in the Vim buffer list.
+  ":Gargsearch	Search for a given pattern in all the files in the
+  "Vim argument list.
+  ":Gqfopen	Use the results from the quickfix list populated by some
+  "other plugin.
+  ":Greplace	Incorporate the modifications from the replace buffer
+  "into the corresponding files."
+  "" Serach and replace plugin
   Plug 'yegappan/greplace'
 
   " vim shell
@@ -36,6 +47,12 @@
 
   " Asynchronous Lint Engine
   Plug 'w0rp/ale'
+
+  " tslime.vim
+  Plug 'jgdavey/tslime.vim'
+
+  " Dir diff
+  Plug 'will133/vim-dirdiff'
 
   "Java completion
   Plug 'artur-shaik/vim-javacomplete2' 
@@ -58,7 +75,10 @@
   " This will install all:
   " cd ~/.vim/bundle/YouCompleteMe
   " ./install.py --all
-  Plug 'Valloric/YouCompleteMe'
+  "Plug 'Valloric/YouCompleteMe'
+  
+  " Use release branch (recommend)
+  Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
   "Plug 'Shougo/deoplete.nvim'
   "Plug 'roxma/nvim-yarp'
@@ -180,6 +200,11 @@
   set wildignore+=*.png,*.jpg,*.gif
 
   " ================ Commands =======================
+ 
+  " ================ Tslim =======================
+  let g:tslime_always_current_session = 1
+  let g:tslime_always_current_window = 1
+  vmap <Leader>r <Plug>SendSelectionToTmux
 
   " Pritty formats Json in current buffer
   command PrittyJson :execute '%!python -m json.tool'
@@ -236,7 +261,7 @@
   nnoremap <C-L> <C-W>l
 
   " macro 
-  nnoremap <Space> @q
+  "nnoremap <Space> @q
 
   " ================== Gutentags ===================== 
   "set tags+=.tags;/
