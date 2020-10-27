@@ -71,6 +71,9 @@
   " Integrate tmux and vim
   Plug 'christoomey/vim-tmux-navigator'
 
+  " Tagbar "
+  Plug 'liuchengxu/vista.vim'
+
   " You compelete me, code complete
   " This will install all:
   " cd ~/.vim/bundle/YouCompleteMe
@@ -85,16 +88,16 @@
   "Plug 'roxma/vim-hug-neovim-rpc'
 
   " Misc handling, used by easytags
-  Plug 'xolox/vim-misc'
+  "Plug 'xolox/vim-misc'
 
   " Ctags handling, used by Tagbar
   "Plug 'xolox/vim-easytags'
   
   " Ctags navigation
-  Plug 'ludovicchabant/vim-gutentags'
+  "Plug 'ludovicchabant/vim-gutentags'
 
   " Tagbar
-  Plug 'majutsushi/tagbar'
+  "Plug 'majutsushi/tagbar'
 
   " Ack 
   Plug 'mileszs/ack.vim'
@@ -137,7 +140,6 @@
   " ================ Theme ============================
   "silent! colorscheme hybrid_material
   color dracula
-  
 
   " ================ General Config ===================
   set background=dark                                 " Set background to dark
@@ -212,7 +214,7 @@
   " ================ Tags =======================
   " local project tag file, locate in git folder.
   "
-  let g:easytags_dynamic_files = 1
+  "let g:easytags_dynamic_files = 1
 
   " ================ KayBindings ====================
   " Ack
@@ -228,16 +230,16 @@
   nnoremap <Leader>hf :NERDTreeFind<CR>
 
   " Open tagbar
-  nnoremap <Leader>v :TagbarToggle<CR>
+  nnoremap <Leader>v :Vista!!<CR>
 
   " Show open buffers
   nnoremap <Leader>j :CtrlPBuffer<CR>
 
   " CtrP seach in tags
-  nnoremap <leader>pt :CtrlPTag<cr>
+  "nnoremap <leader>pt :CtrlPTag<cr>
 
   " Tags, jump to tag if olny one, else list
-  nnoremap <C-]> g<C-]>
+  "nnoremap <C-]> g<C-]>
 
   " Show list symboles
   nnoremap <silent><leader>li :set list!<CR>
@@ -265,8 +267,8 @@
 
   " ================== Gutentags ===================== 
   "set tags+=.tags;/
-  set tags+=.tags
-  let g:gutentags_ctags_tagfile = '.tags'
+  "set tags+=.tags
+  "let g:gutentags_ctags_tagfile = '.tags'
 
   " ================ AsyncRun Settings =======================
   let g:asyncrun_open = 8 
